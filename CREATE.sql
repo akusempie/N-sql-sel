@@ -18,24 +18,24 @@ genre_id)
 CREATE TABLE IF NOT EXISTS Albums (
 	id SERIAL PRIMARY KEY,
 	name VARCHAR(60),
-	YEAR YEAR,
+	year INTEGER CHECK (YEAR>=1800 AND YEAR<=2100),
 );
 
 CREATE TABLE IF NOT EXISTS Tracks (
 	id SERIAL PRIMARY KEY,
 	name VARCHAR(80),
-	duration INTEGER,
+	duration INTEGER NOT NULL CHECK (duration>=1 AND duration>=14400),
 	album_id INTEGER REFERENCES Albums(id)
 );
 
 CREATE TABLE IF NOT EXISTS Collections (
 	id SERIAL PRIMARY KEY,
 	name VARCHAR(80),
-	YEAR YEAR,
+	YEAR integer CHECK (YEAR>=1800 AND YEAR<=2100),
 );
 
-CREATE TABLE IF NOT EXISTS AtistsAlbums (
-	artist_id INTEGER REFERENCES Artist(id),
+CREATE TABLE IF NOT EXISTS ArtistsAlbums (
+	artist_id INTEGER REFERENCES Artists(id),
 	album_id INTEGER REFERENCES Albums(id),
 	CONSTRAINT pkaa PRIMARY KEY (artist_id,
 album_id)
